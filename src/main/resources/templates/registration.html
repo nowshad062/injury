@@ -1,80 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Registration</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
+	<meta charset="ISO-8859-1">
+	<title>33rd BCS Voting Application</title>
+	<link th:href="@{css/style.css}" rel="stylesheet" />
+
+	<link rel="stylesheet"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		  crossorigin="anonymous"/>
+
 </head>
 <body>
-
-	<!-- create navigation bar ( header) -->
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#" th:href="@{/}">Registration and
-					Login Module</a>
-			</div>
-		</div>
-	</nav>
-
+<div id="logo1"></div>
 <br>
-<br>
-	<!-- Create HTML registration form -->
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
+<div style="text-align: center"><h3> 33rd BCS User Update</h3></div>
+<div class = "container">
+	<div class = "row">
+		<div class = "col-md-4 col-md-offset-4">
 
-				<!-- success message -->
-				<div th:if="${param.success}">
-					<div class="alert alert-info">You've successfully registered
-						to our awesome app!</div>
+
+			<form th:action="@{/register}" method="post">
+
+				<!-- error message -->
+				<div th:if="${error}">
+					<div class="alert alert-danger">You are already Registered</div>
 				</div>
 
-				<h1>Registration</h1>
+				<div th:if="${exist}">
+					<div class="alert alert-danger">Code not valid</div>
+				</div>
 
-				<form th:action="@{/registration}" method="post" th:object="${user}">
-					<div class="form-group">
-						<label class="control-label" for="firstName"> First Name </label>
-						<input id="firstName" class="form-control" th:field="*{firstName}"
-							required autofocus="autofocus" />
-					</div>
+				<div th:if="${success}">
+					<div class="alert alert-info">You Have successfully registered</div>
+				</div>
 
-					<div class="form-group">
-						<label class="control-label" for="lastName"> Last Name </label> <input
-							id="lastName" class="form-control" th:field="*{lastName}"
-							required autofocus="autofocus" />
-					</div>
+				<!-- logout message -->
+				<div th:if="${wrong}">
+					<div class="alert alert-info">Please Fill All the fields</div>
+				</div>
 
-					<div class="form-group">
-						<label class="control-label" for="email"> Email </label> <input
-							id="email" class="form-control" th:field="*{email}" required
-							autofocus="autofocus" />
-					</div>
+				<div class = "form-group">
+					<label for ="username"> Code No:  </label>
+					<input type="text" class = "form-control" id ="username" name = "username"
+						   placeholder="Enter Your Code No" autofocus="autofocus">
+				</div>
 
-					<div class="form-group">
-						<label class="control-label" for="password"> Password </label> <input
-							id="password" class="form-control" type="password"
-							th:field="*{password}" required autofocus="autofocus" />
-					</div>
+				<div class = "form-group">
+					<label for ="name"> Name:  </label>
+					<input type="text" class = "form-control" id ="name" name = "name"
+						   placeholder="Enter Your Full Name" autofocus="autofocus">
+				</div>
 
-					<div class="form-group">
-						<button type="submit" class="btn btn-success">Register</button>
-						<span>Already registered? <a href="/" th:href="@{/login}">Login
-								here</a></span>
+				<div class = "form-group">
+					<label for ="email"> Email:  </label>
+					<input type="text" class = "form-control" id ="email" name = "email"
+						   placeholder="Enter Your Email" autofocus="autofocus">
+				</div>
+
+				<div class = "form-group">
+					<label for ="contact"> Contact:  </label>
+					<input type="text" class = "form-control" id ="contact" name = "contact"
+						   placeholder="Enter Your Contact No" autofocus="autofocus">
+				</div>
+
+				<div class = "form-group">
+					<label for ="facility"> Facility:  </label>
+					<input type="text" class = "form-control" id ="facility" name = "facility"
+						   placeholder="Enter Your Facility" autofocus="autofocus">
+				</div>
+
+				<div class = "form-group">
+					<label for ="password"> Password:  </label>
+					<input type="password" class = "form-control" id ="password" name = "password"
+						   placeholder="Enter Your Password" autofocus="autofocus">
+				</div>
+
+
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-6 col-sm-offset-3">
+							<input type="submit" name="login-submit" id="login-submit"
+								   class="form-control btn btn-primary" value="Register" />
+						</div>
 					</div>
-				</form>
+				</div>
+			</form>
+
+			<br>
+
+			<div style="text-align: center">
+				<label>If you are already registered  :  </label><a href="/getpassword">Login</a>
 			</div>
+			<br>
+			<br>
+
 		</div>
 	</div>
+</div>
+
+<footer class="page-footer font-small indigo">
+	<div class="footer-copyright text-center py-3">&copy; 2020 Copyright:
+		<a href="https://33bcshealth.com/"> 33bcshealth.com</a>
+		<p>For Any Query Contact: </p>
+		<p>Dr. Mahabub Azad Razeeb</p>
+		<p>Phone: +8801718092601</p>
+		<p>Email: info@33bcshealth.com</p>
+	</div>
+</footer>
 </body>
 </html>

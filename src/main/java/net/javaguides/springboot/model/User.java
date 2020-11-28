@@ -1,31 +1,44 @@
 package net.javaguides.springboot.model;
 
 import com.opencsv.bean.CsvBindByName;
-
-import java.util.Collection;
-import java.util.List;
+import com.sun.istack.NotNull;
+import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 @Table(name =  "user", uniqueConstraints = @UniqueConstraint(columnNames = "code"))
+@Data
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy =  GenerationType.IDENTITY)
+	@GeneratedValue(strategy =  GenerationType.AUTO)
 	private Long id;
 
-	@CsvBindByName(column = "Provider")
+	@OneToOne(cascade= CascadeType.ALL)
+	private Role role;
+
+	@CsvBindByName(column = "name")
 	private String name;
 
-	@CsvBindByName(column = "Facility")
+	@CsvBindByName(column = "posting")
 	private String facility;
-	@CsvBindByName(column = "Code")
+
+	@NotNull
+	@CsvBindByName(column = "code")
+	@Size(min = 6, max = 6)
+//	@Pattern(regexp="^(1[2-3][0-9][0-9][0-9][0-9])", message="Wrong code!")
 	private String code;
-	@CsvBindByName(column = "Contact")
+	@CsvBindByName(column = "contact")
 	private String contact;
+	@CsvBindByName(column = "email")
+	private String email;
 	@CsvBindByName(column = "Batch")
 	private String batch;
+
+	private String password;
 	
 //	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //	@JoinTable(
@@ -37,17 +50,33 @@ public class User {
 	
 //	private Collection<Role> roles;
 
-	@OneToMany(fetch=FetchType.EAGER)
-	private List<VoterPost> posts;
+	@ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<VoterPost> posts;
 
 	@OneToOne
 	private VoterPost nominatedPost;
+
+	//private Long voteForChairman;
+
+	//private Long voteForVChairman;
+
+	//private Long voteForSecretary;
+
+	private String voteForJSecretary;
+
+	//private Long voteForKosha;
+
+	private String voteForSSompadok;
+
+	private Long voteForDoptor;
+
+	private Long voteForPcsompadok;
 	
 	public User() {
 		
 	}
 	
-	public User(String name, String facility, String code, String contact, List<VoterPost> posts) {
+	public User(String name, String facility, String code, String contact, Set<VoterPost> posts) {
 		super();
 		this.name = name;
 		this.facility = facility;
@@ -104,11 +133,11 @@ public class User {
 		this.batch = batch;
 	}
 
-	public List<VoterPost> getPosts() {
+	public Set<VoterPost> getPosts() {
 		return posts;
 	}
 
-	public void setPosts(List<VoterPost> posts) {
+	public void setPosts(Set<VoterPost> posts) {
 		this.posts = posts;
 	}
 
@@ -118,5 +147,87 @@ public class User {
 
 	public void setNominatedPost(VoterPost nominatedPost) {
 		this.nominatedPost = nominatedPost;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+//	public Long getVoteForChairman() {
+//		return voteForChairman;
+//	}
+//
+//	public void setVoteForChairman(Long voteForChairman) {
+//		this.voteForChairman = voteForChairman;
+//	}
+//
+//	public Long getVoteForSecretary() {
+//		return voteForSecretary;
+//	}
+//
+//	public void setVoteForSecretary(Long voteForSecretary) {
+//		this.voteForSecretary = voteForSecretary;
+//	}
+
+
+//	public Long getVoteForKosha() {
+//		return voteForKosha;
+//	}
+//
+//	public void setVoteForKosha(Long voteForKosha) {
+//		this.voteForKosha = voteForKosha;
+//	}
+
+	public Long getVoteForDoptor() {
+		return voteForDoptor;
+	}
+
+	public void setVoteForDoptor(Long voteForDoptor) {
+		this.voteForDoptor = voteForDoptor;
+	}
+
+	public Long getVoteForPcsompadok() {
+		return voteForPcsompadok;
+	}
+
+	public void setVoteForPcsompadok(Long voteForPcsompadok) {
+		this.voteForPcsompadok = voteForPcsompadok;
+	}
+
+//	public Long getVoteForVChairman() {
+//		return voteForVChairman;
+//	}
+//
+//	public void setVoteForVChairman(Long voteForVChairman) {
+//		this.voteForVChairman = voteForVChairman;
+//	}
+
+
+	public String getVoteForJSecretary() {
+		return voteForJSecretary;
+	}
+
+	public void setVoteForJSecretary(String voteForJSecretary) {
+		this.voteForJSecretary = voteForJSecretary;
+	}
+
+	public String getVoteForSSompadok() {
+		return voteForSSompadok;
+	}
+
+	public void setVoteForSSompadok(String voteForSSompadok) {
+		this.voteForSSompadok = voteForSSompadok;
 	}
 }
