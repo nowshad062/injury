@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>33rd BCS Voting Application</title>
+	<link th:href="@{css/style.css}" rel="stylesheet" />
+	<!--Bootstrap 4-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+	<style>
+		.inputGroup {
+			background-color: #fff;
+			display: block;
+			margin: 10px 0;
+			position: relative;
+		}
+		.inputGroup label {
+			padding: 12px 30px;
+			width: 100%;
+			display: block;
+			text-align: left;
+			color: #3C454C;
+			cursor: pointer;
+			position: relative;
+			z-index: 2;
+			-webkit-transition: color 200ms ease-in;
+			transition: color 200ms ease-in;
+			overflow: hidden;
+		}
+		.inputGroup label:before {
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			content: '';
+			background-color: #5562eb;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			-webkit-transform: translate(-50%, -50%) scale3d(1, 1, 1);
+			transform: translate(-50%, -50%) scale3d(1, 1, 1);
+			-webkit-transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+			transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+			opacity: 0;
+			z-index: -1;
+		}
+		.inputGroup label:after {
+			width: 32px;
+			height: 32px;
+			content: '';
+			border: 2px solid #D1D7DC;
+			background-color: #fff;
+			background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+			background-repeat: no-repeat;
+			background-position: 2px 3px;
+			border-radius: 50%;
+			z-index: 2;
+			position: absolute;
+			right: 30px;
+			top: 50%;
+			-webkit-transform: translateY(-50%);
+			transform: translateY(-50%);
+			cursor: pointer;
+			-webkit-transition: all 200ms ease-in;
+			transition: all 200ms ease-in;
+		}
+		.inputGroup input:checked ~ label {
+			color: #fff;
+		}
+		.inputGroup input:checked ~ label:before {
+			-webkit-transform: translate(-50%, -50%) scale3d(56, 56, 1);
+			transform: translate(-50%, -50%) scale3d(56, 56, 1);
+			opacity: 1;
+		}
+		.inputGroup input:checked ~ label:after {
+			background-color: #54E0C7;
+			border-color: #54E0C7;
+		}
+		.inputGroup input {
+			width: 32px;
+			height: 32px;
+			-webkit-box-ordinal-group: 2;
+			order: 1;
+			z-index: 2;
+			position: absolute;
+			right: 30px;
+			top: 50%;
+			-webkit-transform: translateY(-50%);
+			transform: translateY(-50%);
+			cursor: pointer;
+			visibility: hidden;
+		}
+
+		.form {
+			padding: 0 16px;
+			max-width: 550px;
+			margin: 50px auto;
+			font-size: 18px;
+			font-weight: 600;
+			line-height: 36px;
+		}
+
+		body {
+			background-color: #D1D7DC;
+			font-family: 'Fira Sans', sans-serif;
+		}
+
+		*,
+		*::before,
+		*::after {
+			box-sizing: inherit;
+		}
+
+		html {
+			box-sizing: border-box;
+		}
+
+		code {
+			background-color: #9AA3AC;
+			padding: 0 8px;
+		}
+
+	</style>
+</head>
+<body>
+<div id="logo1"></div>
+<!--সভাপতি-->
+<!--সেক্রেটারি-->
+<!--জয়েন্ট সেক্রেটারি ৩ জন-->
+<!--কোষাধ্যক্ষ-->
+<!--সাংগঠনিক সম্পাদক ৩ জন-->
+<!--দপ্তর-->
+<!--প্রচার সম্পাদক-->
+<!--প্রকাশনা সম্পাদক-->
+
+<form class="form" th:action="@{/apply}" th:object="${user}" method="post">
+
+	<div style="text-align: center">
+		<div ><h6>  নামঃ</h6><h6 th:text= "${user.getName()}"></h6><div>
+		<div><h6>   ব্যাচঃ </h6><h6 th:text="${user.getBatch()}"></h6><div>
+		<div><h6> পোস্টিংঃ </h6><h6 th:text="${user.getFacility()}"></h6><div>
+		<div> <h6>ইমেইলঃ</h6><h6 th:text="${user.getEmail()}"></h6><div>
+	</div>
+<br>
+	<div style="text-align: center;">
+		<div style="margin-left: 30px">
+			<h5 style="position:center";>এক বা একাধিক পদে প্রার্থিতা নির্বাচন করুন </h5>
+		</div>
+	</div>
+
+<br>
+		<ul style="list-style: none;">
+			<li th:each="post: ${selectablePosts}">
+				<div class="inputGroup">
+					<input th:id="${post}" th:name="${post}" type="checkbox" th:field="*{posts}" th:value="${post.getId()}">
+					<label th:for="${post}" th:text="${post.getName()}"></label>
+				</div>
+			</li>
+		</ul>
+
+
+	<div style="text-align: center;">
+		<div style="margin: 0 auto;">
+			<button type="submit"  style="position:center";
+					class="btn btn-primary block full-width m-b">আবেদন করুন</button>
+		</div>
+	</div>
+
+	<input type="hidden" th:value="${user.getCode()}" name="username" />
+	<link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+
+</form>
+
+
+<!--<form th:action="@{/apply}" th:object="${user}" method="post">-->
+
+<!--	<p th:text="${user.getName()}"></p>-->
+<!--	<p th:text="${user.getPosts()}"></p>-->
+<!--	<ul>-->
+<!--		<li th:each="post: ${selectablePosts}">-->
+<!--			<div class="ui-checkbox" >-->
+
+<!--				&lt;!&ndash;					th:each="userSelectedPost: ${user.getPosts()}"&ndash;&gt;-->
+<!--				<input type="checkbox" th:checked="${post == userSelectedPost}" th:field="*{posts}" th:value="${post.getId()}">-->
+<!--				<label th:text="${post.getName()}"></label>-->
+
+<!--			</div>-->
+<!--		</li>-->
+<!--	</ul>-->
+<!--	<input type="hidden" th:value="${user.getCode()}" name="username" />-->
+<!--	<input type="submit" value="Submit"/>-->
+<!--</form>-->
+
+</body>
+
+<br>
+<br>
+
+<footer class="page-footer font-small indigo">
+	<div class="footer-copyright text-center py-3">&copy; 2020 Copyright:
+		<a href="https://33bcshealth.com/"> 33bcshealth.com</a>
+		<p>For Any Query Contact: </p>
+		<p>Dr. Mahabub Azad Razeeb</p>
+		<p>Phone: +8801718092601</p>
+		<p>Email: info@33bcshealth.com</p>
+	</div>
+</footer>
+</html>

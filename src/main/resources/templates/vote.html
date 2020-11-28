@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>33rd BCS Voting Application</title>
+	<link th:href="@{css/style.css}" rel="stylesheet" />
+<!--	<link th:href="@{css/style.css}" rel="stylesheet" />-->
+	<!--Bootstrap 4-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+
+
+	<style>
+
+		.funkyradio div {
+			clear: both;
+			overflow: hidden;
+		}
+
+		.funkyradio label {
+			width: 100%;
+			border-radius: 3px;
+			border: 1px solid #D1D3D4;
+			font-weight: normal;
+		}
+
+		.funkyradio input[type="radio"]:empty,
+		.funkyradio input[type="checkbox"]:empty {
+			display: none;
+		}
+
+		.funkyradio input[type="radio"]:empty ~ label,
+		.funkyradio input[type="checkbox"]:empty ~ label {
+			position: relative;
+			line-height: 2.5em;
+			text-indent: 3.25em;
+			margin-top: 2em;
+			cursor: pointer;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		.funkyradio input[type="radio"]:empty ~ label:before,
+		.funkyradio input[type="checkbox"]:empty ~ label:before {
+			position: absolute;
+			display: block;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			content: '';
+			width: 2.5em;
+			background: #D1D3D4;
+			border-radius: 3px 0 0 3px;
+		}
+
+		.funkyradio input[type="radio"]:hover:not(:checked) ~ label,
+		.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
+			color: #888;
+		}
+
+		.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
+		.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
+			content: '\2714';
+			text-indent: .9em;
+			color: #C2C2C2;
+		}
+
+		.funkyradio input[type="radio"]:checked ~ label,
+		.funkyradio input[type="checkbox"]:checked ~ label {
+			color: #777;
+		}
+
+		.funkyradio input[type="radio"]:checked ~ label:before,
+		.funkyradio input[type="checkbox"]:checked ~ label:before {
+			content: '\2714';
+			text-indent: .9em;
+			color: #333;
+			background-color: #ccc;
+		}
+
+		.funkyradio input[type="radio"]:focus ~ label:before,
+		.funkyradio input[type="checkbox"]:focus ~ label:before {
+			box-shadow: 0 0 0 3px #999;
+		}
+
+		.funkyradio-default input[type="radio"]:checked ~ label:before,
+		.funkyradio-default input[type="checkbox"]:checked ~ label:before {
+			color: #333;
+			background-color: #ccc;
+		}
+
+		.funkyradio-primary input[type="radio"]:checked ~ label:before,
+		.funkyradio-primary input[type="checkbox"]:checked ~ label:before {
+			color: #fff;
+			background-color: #337ab7;
+		}
+
+		.funkyradio-success input[type="radio"]:checked ~ label:before,
+		.funkyradio-success input[type="checkbox"]:checked ~ label:before {
+			color: #fff;
+			background-color: #5cb85c;
+		}
+
+		.funkyradio-danger input[type="radio"]:checked ~ label:before,
+		.funkyradio-danger input[type="checkbox"]:checked ~ label:before {
+			color: #fff;
+			background-color: #d9534f;
+		}
+
+		.funkyradio-warning input[type="radio"]:checked ~ label:before,
+		.funkyradio-warning input[type="checkbox"]:checked ~ label:before {
+			color: #fff;
+			background-color: #f0ad4e;
+		}
+
+		.funkyradio-info input[type="radio"]:checked ~ label:before,
+		.funkyradio-info input[type="checkbox"]:checked ~ label:before {
+			color: #fff;
+			background-color: #5bc0de;
+		}
+
+	</style>
+
+</head>
+<body>
+<div id="logo1"></div>
+<!--সভাপতি-->
+<!--সেক্রেটারি-->
+<!--জয়েন্ট সেক্রেটারি ৩ জন-->
+<!--কোষাধ্যক্ষ-->
+<!--সাংগঠনিক সম্পাদক ৩ জন-->
+<!--দপ্তর-->
+<!--প্রচার সম্পাদক-->
+<!--প্রকাশনা সম্পাদক-->
+
+<form class="form" th:action="@{/vote}" th:object="${user}" method="post">
+
+	<div style="margin: auto" class="col-md-4">
+
+		<div th:if="${error}">
+			<div class="alert alert-danger">Error in Voting. Please Follow the Rules</div>
+		</div>
+
+		<hr>
+		<h6><strong>" যুগ্ম সম্পাদক  " </strong> পদের জন্য নিম্নলিখিত প্রার্থি তালিকা হতে আপনার পছন্দের ৪ জন  প্রার্থী নির্বাচন করুন</h6>
+		<hr>
+
+		<div th:if="${wrongj}">
+			<div class="alert alert-danger">Please Select Atleat One and Atmost Four Candidates </div>
+		</div>
+
+		<div class="funkyradio">
+			<div class="funkyradio-success" th:each="user: ${jsecretaries}">
+				<input type="checkbox" name="jsecretary" th:id="${user}" th:value="${user.getId()}"/>
+				<label th:for="${user}" th:text="${user.getName()}"></label>
+			</div>
+		</div>
+		<br>
+		<br>
+		<br>
+
+
+		<hr>
+		<h6><strong>" সাংগঠনিক সম্পাদক " </strong> পদের জন্য নিম্নলিখিত প্রার্থি তালিকা হতে আপনার পছন্দের ৪ জন  প্রার্থী নির্বাচন করুন</h6>
+		<hr>
+
+		<div th:if="${wrongs}">
+			<div class="alert alert-danger">Please Select Atleat One and Atmost Four Candidates </div>
+		</div>
+
+		<div class="funkyradio">
+			<div class="funkyradio-success" th:each="user: ${ssompadoks}">
+				<input type="checkbox" name="ssompadok" th:id="${user}" th:value="${user.getId()}"/>
+				<label th:for="${user}" th:text="${user.getName()}"></label>
+			</div>
+		</div>
+
+		<br>
+		<br>
+		<br>
+
+		<hr>
+		<h6><strong>" দপ্তর সম্পাদক " </strong> পদের জন্য নিম্নলিখিত প্রার্থি তালিকা হতে আপনার পছন্দের প্রার্থী নির্বাচন করুন</h6>
+		<hr>
+
+		<div th:if="${wrongd}">
+			<div class="alert alert-danger">Please Select Only One Candidate </div>
+		</div>
+
+		<div class="funkyradio">
+			<div class="funkyradio-success" th:each="user: ${doptors}">
+				<input type="radio" name="doptor" th:id="${user}" th:value="${user.getId()}"/>
+				<label th:for="${user}" th:text="${user.getName()}"></label>
+			</div>
+		</div>
+
+		<br>
+		<br>
+		<br>
+
+		<hr>
+		<h6><strong>" প্রচার সম্পাদক " </strong> পদের জন্য নিম্নলিখিত প্রার্থি তালিকা হতে আপনার পছন্দের প্রার্থী নির্বাচন করুন</h6>
+		<hr>
+
+		<div th:if="${wrongpc}">
+			<div class="alert alert-danger">Please Select Only One Candidate </div>
+		</div>
+
+		<div class="funkyradio">
+			<div class="funkyradio-success" th:each="user: ${pcsompadoks}">
+				<input type="radio" name="pcsompadok" th:id="${user}" th:value="${user.getId()}"/>
+				<label th:for="${user}" th:text="${user.getName()}"></label>
+			</div>
+		</div>
+
+		<br>
+		<br>
+		<br>
+
+
+	</div>
+
+	<br>
+	<div style="text-align: center; margin-left: 45%">
+		<div style="margin: 0 auto;">
+			<button type="submit"  style="position:center";
+					class="btn btn-primary block m-b">Vote</button>
+		</div>
+	</div>
+
+	<input type="hidden" th:value="${user.getCode()}" name="username" />
+	<link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+
+</form>
+
+
+</body>
+
+<br>
+<br>
+
+<footer class="page-footer font-small indigo">
+	<div class="footer-copyright text-center py-3">&copy; 2020 Copyright:
+		<a href="https://33bcshealth.com/"> 33bcshealth.com</a>
+		<p>For Any Query Contact: </p>
+		<p>Dr. Mahabub Azad Razeeb</p>
+		<p>Phone: +8801718092601</p>
+		<p>Email: info@33bcshealth.com</p>
+	</div>
+</footer>
+</html>

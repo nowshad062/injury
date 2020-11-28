@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>33rd BCS Voting Application</title>
+
+	<link th:href="@{css/style.css}" rel="stylesheet" />
+	<!--Bootstrap 4-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+
+</head>
+<body>
+<div id="logo1"></div>
+
+<br>
+<br>
+
+
+<div style="text-align: center;">
+	<div style="margin-left: 30px">
+		<h5 style="position:center";> নিম্নলিখিত পদ ও প্রার্থিতে আপনার ভোট গ্রহন করা হয়েছে  </h5>
+	</div>
+</div>
+
+<br>
+
+<form class="form" th:action="@{/}" method="get">
+
+<div class="container">
+
+	<table style="text-align: center" class="table table-striped">
+		<thead>
+		<tr>
+			<th>পদ</th>
+			<th>প্রার্থি</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td>যুগ্ম সম্পাদক</td>
+			<td th:text="${jsecretary}" ></td>
+		</tr>
+
+
+		<tr>
+			<td>সাংগঠনিক সম্পাদক</td>
+			<td th:text="${ssompadok}" ></td>
+		</tr>
+
+		<tr>
+			<td>দপ্তর সম্পাদক</td>
+			<td th:text="${doptor}" ></td>
+		</tr>
+
+		<tr>
+			<td>প্রচার সম্পাদক</td>
+			<td th:text="${pcsompadok}" ></td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+
+	<br>
+	<div style="text-align: center; margin-left: 45%">
+		<div style="margin: 0 auto;">
+			<button type="submit"  style="position:center";
+					class="btn btn-primary block m-b">Submit and Logout</button>
+		</div>
+	</div>
+
+</form>
+
+</body>
+<br>
+<br>
+<footer class="page-footer font-small indigo">
+	<div class="footer-copyright text-center py-3">&copy; 2020 Copyright:
+		<a href="https://33bcshealth.com/"> 33bcshealth.com</a>
+		<p>For Any Query Contact: </p>
+		<p>Dr. Mahabub Azad Razeeb</p>
+		<p>Phone: +8801718092601</p>
+		<p>Email: info@33bcshealth.com</p>
+	</div>
+</footer>
+</html>

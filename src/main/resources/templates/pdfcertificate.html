@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Injury Certificate</title>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link th:href="@{css/style.css}" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div id="logo1"></div>
+<div style="text-align: center"><h5>Government of the People’s Republic of Bangladesh</h5></div>
+<div style="text-align: center"><h5>Office of the Director</h5></div>
+<div style="text-align: center"><h5>Rangpur Medical College Hospital, Rangpur</h5></div>
+<div style="text-align: center"><h4>Injury Certificate</h4></div>
+
+<br/>
+<br/>
+
+<div class="container">
+
+	<table class="table table-bordered">
+		<thead class="thead-light">
+		<tr>
+			<th>Dispatch SI: <i class="fa fa-sort"></i></th>
+			<th th:text="${patient.id}"><i class="fa fa-sort"></i></th>
+
+			<th>Date: <i class="fa fa-sort"></i></th>
+			<th th:text="${patient.generationDate}"></th>
+
+			<th>Directors Docket: <i class="fa fa-sort"></i></th>
+			<th th:text="${patient.docket}"></th>
+
+			<th>Docket Date: <i class="fa fa-sort"></i></th>
+			<th th:text="${patient.docketDate}"></th>
+
+		</tr>
+		</thead>
+	</table>
+
+
+	<table class="table table-borderless">
+		<tbody id="myTable">
+		<tr>
+			<td>Name: <i class="fa fa-sort"></i></td>
+			<td th:text="${patient.name}"><i class="fa fa-sort"></i></td>
+
+			<td>Village: <i class="fa fa-sort"></i></td>
+			<td th:text="${patient.village}"></td>
+
+			<td>Reg No: <i class="fa fa-sort"></i></td>
+			<td th:text="${patient.regNo}"></td>
+
+		</tr>
+
+		<tr>
+
+			<td>Age: <i class="fa fa-sort"></i></td>
+			<td th:text="${patient.age}"><i class="fa fa-sort"></i></td>
+
+			<td>Post: <i class="fa fa-sort"></i></td>
+			<td th:text="${patient.post}"></td>
+
+			<td>Date Of Admission: <i class="fa fa-sort"></i></td>
+			<td th:text="${patient.dateOfAdmission}"></td>
+
+		</tr>
+
+		<tr>
+
+			<td>Sex: <i class="fa fa-sort"></i></td>
+			<td th:text="${patient.sex}"> <i class="fa fa-sort"></i></td>
+
+			<td>Thana: <i class="fa fa-sort"></i></td>
+			<td th:text="${patient.thana}"></td>
+
+			<td>Time of Admission: <i class="fa fa-sort"></i></td>
+			<td th:text="${patient.timeOfAdmission}"></td>
+
+		</tr>
+
+		<tr>
+
+			<td>Gurdian: <i class="fa fa-sort"></i></td>
+			<td th:text="${patient.gurdian}"><i class="fa fa-sort"></i></td>
+
+			<td>District: <i class="fa fa-sort"></i></td>
+			<td th:text="${patient.district}"></td>
+
+
+			<td>Ward/Unit: <i class="fa fa-sort"></i></td>
+			<td th:text="${patient.ward}"></td>
+
+		</tr>
+
+		<tr>
+
+			<td>Relation: <i class="fa fa-sort"></i></td>
+			<td th:text="${patient.relation}"></td>
+
+			<td>National ID: <i class="fa fa-sort"></i></td>
+			<td th:text="${patient.nid}"><i class="fa fa-sort"></i></td>
+
+
+		</tr>
+
+		</tbody>
+	</table>
+
+	<br/>
+
+	<table class="table table-bordered">
+
+		<thead class="thead-light">
+		<tr>
+			<th scope="col">Type of Injury</th>
+			<th scope="col">Site of Injury</th>
+			<th scope="col">Size of Injury</th>
+			<th scope="col">Age of Injury</th>
+			<th scope="col">Nature of Weapon</th>
+			<th scope="col">Remarks</th>
+		</tr>
+		</thead>
+		<tbody id="myTable2">
+
+		<tr th:each="injury : ${patient.injuries}">
+			<td th:text="${injury.typeOfInjury}"></td>
+			<td th:text="${injury.siteOfInjury}"></td>
+			<td th:text="${injury.sizeOfInjury}"></td>
+			<td th:text="${injury.ageOfInjury}"></td>
+			<td th:text="${injury.natureOfWeapon}"></td>
+			<td th:text="${injury.remarks}"></td>
+
+		</tr>
+
+		</tbody>
+	</table>
+
+	<i><small th:text="'Note : ' + ${patient.note}"></small></i>
+
+	<br/>
+	<br/>
+	<p>[Injury Certificate has been issued as directed by the respected Director of Rangpur Medical College
+		Hospital, Rangpur, order No-rpmch/Rang/Admin/2020/661/1(11), Date: 27.02.2020 and according to
+		the supplied documents]</p>
+
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+	<p>_________________</p>
+
+	<p>Signature</p>
+
+
+</div>
+
+
+</body>
+</html>

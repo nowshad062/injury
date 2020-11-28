@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Injury Database</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link th:href="@{css/style.css}" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-light bg-light py-0 navbar-expand-lg py-md-0">
+	<a class="navbar-brand" href="#">Injury Certificate Database</a>
+	<button class="navbar-toggler mt-1" type="button" data-toggle="collapse" data-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		<i class="fa fa-bars"></i>
+	</button>
+	<div class="navbar-collapse collapse" id="navbarNav">
+		<ul class="navbar-nav">
+			<li class="nav-item py-0"><a th:href="@{/generate}" class="nav-link">Create New Certificate</a></li>
+			<li class="nav-item py-0"><a th:href="@{/search}" class="nav-link">Search</a></li>
+			<li class="nav-item py-0"><a th:href="@{/logout}" class="nav-link">Logout</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+<div id="logo1"></div>
+
+<div style="text-align: center"><h6>Government of the People’s Republic of Bangladesh</h6></div>
+<div style="text-align: center"><h6>Office of the Director</h6></div>
+<div style="text-align: center"><h6>Rangpur Medical College Hospital, Rangpur</h6></div>
+<div style="text-align: center"><h5> Injury Database</h5></div>
+
+<div class="container-fluid">
+
+	<!--	<p>Type something in the input field to search the table for first names, last names or emails:</p>-->
+<!--	<div class="float-container" style="margin-bottom:15px;">-->
+<!--		<div style="width:40%; float:left;">-->
+<!--			<input class="form-control" id="myInput" type="text" placeholder="Search... ">-->
+<!--		</div>-->
+
+<!--		<div style="width:19%; float:right;">-->
+<!--			<a href="/generate" class="btn btn-primary"><b-->
+<!--					class="fas fa-user-plus ml-2"> Create New Certificate</b></a>-->
+<!--		</div>-->
+<!--	</div>-->
+
+
+	<form th:action="@{/search}"
+		  th:object="${patient}" method="post">
+
+		<div class="container-fluid" >
+
+			<div class="form-group">
+				<div class="form-row">
+
+					<div class="form-group col-md-2">
+						<label for="name" class="col-form-label">Dispatch SI : </label> <input
+							type="text" th:field="*{dispatchId}" class="form-control" id="dispatchId"
+							placeholder="Dispatch Id">
+					</div>
+
+
+					<div class="form-group col-md-2">
+						<label for="name" class="col-form-label">Directors Docket : </label> <input
+							type="text" th:field="*{docket}" class="form-control" id="docket"
+							placeholder="Directors Docket">
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="name" class="col-form-label">Docket Date : </label>
+						<input type="date" th:field="*{docketDate}" class="form-control" id="docketDate">
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="regno" class="col-form-label">Registration No: </label> <input
+							type="text" th:field="*{regNo}" class="form-control" id="regno"
+							placeholder="Registration No">
+					</div>
+
+
+					<div class="form-group col-md-2">
+						<label for="fromDateOfAdmission" class="col-form-label">From Date of Admission: </label>
+						<input type="date" name="fromDateOfAdmission" class="form-control" id="fromDateOfAdmission">
+
+					</div>
+
+
+                    <div class="form-group col-md-2">
+                        <label for="toDateOfAdmission" class="col-form-label">To Date of Admission:</label>
+                        <input type="date" name="toDateOfAdmission"  class="form-control" id="toDateOfAdmission">
+
+                    </div>
+
+
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="form-row">
+					<div class="form-group col-md-2">
+						<label for="name" class="col-form-label">Name</label> <input
+							type="text" th:field="*{name}" class="form-control" id="name"
+							placeholder="Name"> <span
+							th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+							class="text-danger"></span>
+					</div>
+
+					<div class="form-group col-md-1">
+						<label for="fromAge" class="col-form-label">Age: (From)</label> <input
+							type="text" name="fromAge" class="form-control" id="fromAge"
+							placeholder="Age">
+					</div>
+
+                    <div class="form-group col-md-1">
+                        <label for="toAge" class="col-form-label">Age: (To)</label> <input
+                            type="text" class="form-control" id="toAge"
+                            placeholder="Age">
+                    </div>
+
+					<div class="form-group col-md-2">
+						<label for="phoneNo" class="col-form-label">Phone No</label> <input
+							type="text" th:field="*{phoneNo}" class="form-control" id="phoneNo"
+							placeholder="Phone No">
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="nid" class="col-form-label">National ID: </label> <input
+							type="text" th:field="*{nid}" class="form-control" id="nid"
+							placeholder="National ID No: ">
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="gurdian" class="col-form-label">Guardian Name</label> <input
+							type="text" th:field="*{gurdian}" class="form-control" id="gurdian"
+							placeholder="Gurdian">
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="relation" class="col-form-label">Relation with Guardian</label> <input
+							type="text" th:field="*{relation}" class="form-control" id="relation"
+							placeholder="Relation with Guardian">
+					</div>
+
+				</div>
+			</div>
+
+			<div class="form-group">
+
+				<div class="form-row">
+
+					<div class="form-group col-md-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								<input type="radio" id="option1" name="option1" class="form-check-input" value="Male" th:field="*{sex}">Male
+							</label>
+						</div>
+						<div class="form-check">
+							<label class="form-check-label">
+								<input type="radio" id="option2" name="option2" class="form-check-input" value="Female" th:field="*{sex}">Female
+							</label>
+						</div>
+						<div class="form-check">
+							<label class="form-check-label">
+								<input type="radio" id="option3" name="option3" class="form-check-input" value="Others" th:field="*{sex}">Others
+							</label>
+						</div>
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="village" class="col-form-label">Village</label> <input
+							type="text" th:field="*{village}" class="form-control" id="village"
+							placeholder="Village">
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="post" class="col-form-label">Post</label> <input
+							type="text" th:field="*{post}" class="form-control" id="post"
+							placeholder="Post">
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="thana" class="col-form-label">Thana</label> <input
+							type="text" th:field="*{thana}" class="form-control" id="thana"
+							placeholder="Enter Thana">
+					</div>
+					<div class="form-group col-md-2">
+						<label for="district" class="col-form-label">District:</label> <input
+							type="text" th:field="*{district}" class="form-control" id="district"
+							placeholder="District">
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="ward" class="col-form-label">Ward/Unit:</label> <input
+							type="text" th:field="*{ward}" class="form-control" id="ward"
+							placeholder="Ward/Unit">
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+        <div style="margin-left: 90%" class="col-md-1">
+            <input type="submit" class="btn btn-primary" value="Search">
+        </div>
+
+	</form>
+
+	<br>
+
+	<table class="table table-bordered table-striped">
+		<thead>
+		<tr>
+
+			<th>Dispatch SI <i class="fa fa-sort"></i></th>
+			<th style="width : 16%">Name <i class="fa fa-sort"></i></th>
+			<th>Age</th>
+			<th>Sex <i class="fa fa-sort"></i></th>
+			<th style="width : 8%">Gurdian Name</th>
+			<th style="width : 8%">Phone Number</th>
+			<th style="width : 8%">Registration No</th>
+            <th>National Id</th>
+			<th style="width : 11%">Date of Admission</th>
+			<th style="width : 22%">Actions</th>
+
+		</tr>
+		</thead>
+		<tbody id="myTable">
+
+
+		<tr th:each="patient : ${patients}">
+			<td th:text="${patient.id}"></td>
+			<td th:text="${patient.name}"></td>
+			<td th:text="${patient.age}"></td>
+			<td th:text="${patient.sex}"></td>
+			<td th:text="${patient.gurdian}"></td>
+			<td th:text="${patient.phoneNo}"></td>
+			<td th:text="${patient.regNo}"></td>
+            <td th:text="${patient.nid}"></td>
+			<td th:text="${patient.dateOfAdmission}"></td>
+			<td>
+				<a th:href="@{/edit/{id}(id=${patient.id})}" class="btn btn-primary" role="button">Edit</a>
+				<a th:if="${user.role.name == 'Admin'}" th:href="@{/delete/{id}(id=${patient.id})}" class="btn btn-danger">Delete</a>
+				<a th:href="@{/viewcertificate/{id}(id=${patient.id})}" class="btn btn-info" role="button">View Certificate</a>
+			</td>
+		</tr>
+
+
+		</tbody>
+	</table>
+</div>
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+</body>
+</html>

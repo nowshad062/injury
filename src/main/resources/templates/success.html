@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>33rd BCS Voting Application</title>
+
+	<link th:href="@{css/style.css}" rel="stylesheet" />
+	<!--Bootstrap 4-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+	<style>
+		/* List */
+		ul {
+			counter-reset: index;
+			display: table;
+			margin: 0 auto;
+			max-width: 300px;
+		}
+
+		/* List element */
+		li {
+			counter-increment: index;
+			display: -webkit-box;
+			display: flex;
+			-webkit-box-align: center;
+			align-items: center;
+			padding: 12px 0;
+			box-sizing: border-box;
+		}
+
+
+		/* Element counter */
+		li::before {
+			content: counters(index, ".", decimal-leading-zero);
+			font-size: 1.5rem;
+			text-align: right;
+			font-weight: bold;
+			min-width: 50px;
+			padding-right: 12px;
+			font-feature-settings: "tnum";
+			font-variant-numeric: tabular-nums;
+			align-self: flex-start;
+			background-image: -webkit-gradient(linear, left top, left bottom, from(aquamarine), to(orangered));
+			background-image: linear-gradient(to bottom, aquamarine, orangered);
+			background-attachment: fixed;
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+
+
+		/* Element separation */
+		li + li {
+			border-top: 1px solid rgba(255,255,255,0.2);
+		}
+
+	</style>
+</head>
+<body>
+<div id="logo1"></div>
+	<div style="text-align: center; margin-top: 60px; margin-bottom: 50px;">
+		<div style="margin-left: 30px">
+			<h4 style="position:center";>আপনি নিম্নলিখিত পদে আপনার প্রার্থিতা আবেদন করেছেন</h4>
+		</div>
+	</div>
+
+
+		<ul style="position: center">
+			<li th:each="post: ${posts}">
+				<div class="inputGroup">
+					<label th:text="${post.getName()}"></label>
+				</div>
+			</li>
+
+		</ul>
+
+<form class="form" th:action="@{/login}" th:object="${user}" method="get">
+	<div style="text-align: center;">
+		<div style="margin: 20px 40%">
+			<button type="submit"  style="position:center";
+					class="btn btn-primary block full-width m-b">Submit and Logout</button>
+		</div>
+	</div>
+</div>
+</form>
+
+
+			<link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+
+</body>
+<br>
+<br>
+<footer class="page-footer font-small indigo">
+	<div class="footer-copyright text-center py-3">&copy; 2020 Copyright:
+		<a href="https://33bcshealth.com/"> 33bcshealth.com</a>
+		<p>For Any Query Contact: </p>
+		<p>Dr. Mahabub Azad Razeeb</p>
+		<p>Phone: +8801718092601</p>
+		<p>Email: info@33bcshealth.com</p>
+	</div>
+</footer>
+</html>
